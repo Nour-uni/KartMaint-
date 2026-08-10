@@ -1,0 +1,3 @@
+-- KARTMAINT FALLBACK DATABASE BACKUP
+-- Timestamp: 2026-08-09T10:16:28.085Z
+-- Status: pg_dump executable required on host for full binary dump.
