@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Wrench } from "lucide-react";
+import SteeringWheelIcon from "@/components/SteeringWheelIcon";
 
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-[#14181f] flex items-center justify-center overflow-hidden p-6">
-      {/* Background: racing circuit rings */}
       <svg
         className="absolute inset-0 w-full h-full"
         viewBox="0 0 1376 768"
@@ -36,11 +35,10 @@ export default function Home() {
         />
       </svg>
 
-      {/* Hero card */}
       <div className="relative z-10 w-full max-w-md rounded-2xl border border-white/10 bg-[#1b2028]/85 backdrop-blur-sm p-10 text-center">
         <div className="flex flex-col items-center gap-3 mb-6">
           <div className="w-16 h-16 rounded-full bg-[#1f2530] border border-[#EF9F27] flex items-center justify-center">
-            <Wrench className="w-7 h-7 text-[#EF9F27]" strokeWidth={1.75} />
+            <SteeringWheelIcon className="w-7 h-7 text-[#EF9F27]" />
           </div>
           <h1 className="text-3xl font-medium text-white">KartMaint</h1>
           <p className="text-sm text-white/50">Fleet maintenance management</p>

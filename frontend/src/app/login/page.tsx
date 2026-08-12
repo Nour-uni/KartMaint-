@@ -3,6 +3,7 @@
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { User, Wrench, ClipboardCheck } from "lucide-react";
+import SteeringWheelIcon from "@/components/SteeringWheelIcon";
 
 interface LoginResponse {
   token: string;
@@ -37,7 +38,6 @@ export default function LoginPage() {
         return;
       }
 
-      // Adjust based on how your backend returns the token/role.
       localStorage.setItem("token", data.token);
 
       if (data.mustChangePassword) {
@@ -58,7 +58,6 @@ export default function LoginPage() {
 
   return (
     <div className="relative min-h-screen bg-[#14181f] flex items-center justify-center overflow-hidden p-6">
-      {/* Background: racing circuit rings */}
       <svg
         className="absolute inset-0 w-full h-full"
         viewBox="0 0 1376 768"
@@ -104,14 +103,13 @@ export default function LoginPage() {
         </g>
       </svg>
 
-      {/* Login card */}
       <form
         onSubmit={handleSubmit}
         className="relative z-10 w-full max-w-sm rounded-2xl border border-white/10 bg-[#1b2028]/85 backdrop-blur-sm p-8"
       >
         <div className="flex flex-col items-center gap-2 mb-6">
           <div className="w-14 h-14 rounded-full bg-[#1f2530] border border-[#EF9F27] flex items-center justify-center">
-            <Wrench className="w-6 h-6 text-[#EF9F27]" strokeWidth={1.75} />
+            <SteeringWheelIcon className="w-6 h-6 text-[#EF9F27]" />
           </div>
           <h1 className="text-2xl font-medium text-white">KartMaint</h1>
           <p className="text-sm text-white/50">Fleet maintenance management</p>

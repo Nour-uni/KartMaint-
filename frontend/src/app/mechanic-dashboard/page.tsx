@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Home, ClipboardList, Car, Settings, Bell, Wrench } from "lucide-react";
+import { Home, ClipboardList, Car, Settings, Bell } from "lucide-react";
+import SteeringWheelIcon from "@/components/SteeringWheelIcon";
 
 interface Kart {
   id: number;
@@ -69,7 +70,6 @@ export default function MechanicDashboard() {
   async function handleTakeCharge(kartId: number) {
     // Replace with a real API call, e.g.:
     // await fetch(`/api/repairs`, { method: 'POST', body: JSON.stringify({ kartId }) });
-    // Then navigate to the technical data sheet form for this repair.
     setKarts((prev) => prev.filter((k) => k.id !== kartId));
   }
 
@@ -80,7 +80,7 @@ export default function MechanicDashboard() {
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-full bg-[#1f2530] border border-[#EF9F27] flex items-center justify-center">
-              <Wrench className="w-5 h-5 text-[#EF9F27]" strokeWidth={1.75} />
+              <SteeringWheelIcon className="w-5 h-5 text-[#EF9F27]" />
             </div>
             <div>
               <p className="text-lg font-medium text-white leading-tight">KartMaint</p>
