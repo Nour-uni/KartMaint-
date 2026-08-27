@@ -2,6 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const sequelize = require('./config/database');
 const User = require('./models/User');
+const authRoutes = require('./routes/authRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const kartRoutes = require('./routes/kartRoutes');
+const stockRoutes = require('./routes/stockRoutes');
+const equipmentRequestRoutes = require('./routes/equipmentRequestRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const reportRoutes = require('./routes/reportRoutes');
+const { startDailyReminderJob } = require('./cron/dailyReminder');
+const repairReportRoutes = require('./routes/repairReportRoutes');
 
 const app = express();
 app.use(express.json());
@@ -10,6 +19,15 @@ app.get('/', (req, res) => {
   res.json({ message: 'KartMaint API is running' });
 });
 
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/karts', kartRoutes);
+app.use('/api/stock', stockRoutes);
+app.use('/api/equipment-requests', equipmentRequestRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/reports', reportRoutes);
+app.use('/api/repair-reports', repairReportRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 async function start() {
@@ -17,12 +35,13 @@ async function start() {
     await sequelize.authenticate();
     console.log('✅ Database connection successful');
 
-    await sequelize.sync(); // creates the users table if it doesn't exist yet
+    await sequelize.sync({ alter: true });
     console.log('✅ Models synced');
 
     app.listen(PORT, () => {
       console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
+    startDailyReminderJob();
   } catch (err) {
     console.error('❌ Unable to connect to the database:', err.message);
   }

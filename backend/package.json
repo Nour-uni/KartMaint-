@@ -4,11 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "seed": "tsx src/seed-everything.ts",
-    "backup": "tsx src/scripts/backup.ts",
-    "dev": "tsx watch src/server.ts",
-    "test": "tsc --noEmit"
+    "dev": "node server.js",
+    "start": "node server.js",
+    "seed-admin": "node seed-admin.js"
   },
   "keywords": [],
   "author": "",
@@ -17,10 +15,13 @@
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.4.2",
+    "exceljs": "^4.4.0",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.2.0",
-    "nodemailer": "^9.0.4",
+    "node-cron": "^4.6.0",
+    "nodemailer": "^9.0.5",
+    "pdfkit": "^0.19.1",
     "pg": "^8.22.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.8"

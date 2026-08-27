@@ -19,7 +19,7 @@ const User = sequelize.define('User', {
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false, // will store the bcrypt hash, not plain text
+    allowNull: false, // stores the bcrypt hash, never plain text
   },
   role: {
     type: DataTypes.ENUM('admin', 'controller', 'mechanic'),
@@ -27,15 +27,31 @@ const User = sequelize.define('User', {
   },
   mustChangePassword: {
     type: DataTypes.BOOLEAN,
-    defaultValue: true, // forces password change on first login
+    defaultValue: true,
   },
   isActive: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
+  failedLoginAttempts: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  lockedUntil: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+  resetToken: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  resetTokenExpiry: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
 }, {
   tableName: 'users',
-  timestamps: true, // adds createdAt / updatedAt automatically
+  timestamps: true,
 });
 
 module.exports = User;
