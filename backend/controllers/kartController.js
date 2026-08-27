@@ -59,6 +59,17 @@ async function deleteKart(req, res) {
     return res.status(404).json({ message: 'Kart not found.' });
   }
 
+  // Safety: never delete a kart currently being repaired
+  if (kart.status === 'in_repair') {
+    return res.status(409).json({ message: 'Cannot delete a kart that is currently in repair. Complete or reassign the repair first.' });
+  }
+
+  // Cancel any pending equipment requests linked to this kart to avoid orphan records
+  await EquipmentRequest.update(
+    { status: 'rejected' },
+    { where: { kartId: id, status: 'pending' } }
+  );
+
   await kart.destroy();
   return res.json({ message: 'Kart removed.' });
 }

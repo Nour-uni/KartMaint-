@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const sequelize = require('./config/database');
 const User = require('./models/User');
 const authRoutes = require('./routes/authRoutes');
@@ -13,6 +14,13 @@ const { startDailyReminderJob } = require('./cron/dailyReminder');
 const repairReportRoutes = require('./routes/repairReportRoutes');
 
 const app = express();
+
+// Allow requests from the configured frontend URL only
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  credentials: true,
+}));
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -47,4 +55,15 @@ async function start() {
   }
 }
 
-start();
+if (process.env.NODE_ENV !== 'test') {
+  // Validate required environment variables before starting
+  const REQUIRED_ENV = ['DATABASE_URL', 'JWT_SECRET', 'FRONTEND_URL'];
+  const missing = REQUIRED_ENV.filter((v) => !process.env[v]);
+  if (missing.length > 0) {
+    console.error(`❌ Missing required environment variables: ${missing.join(', ')}`);
+    process.exit(1);
+  }
+  start();
+}
+
+module.exports = app;

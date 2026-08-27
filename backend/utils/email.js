@@ -11,6 +11,7 @@ const transporter = nodemailer.createTransport({
 });
 
 async function sendTempPasswordEmail(to, tempPassword, fullName) {
+  if (process.env.NODE_ENV === 'test') return;
   await transporter.sendMail({
     from: process.env.EMAIL_FROM,
     to,
@@ -27,6 +28,7 @@ async function sendTempPasswordEmail(to, tempPassword, fullName) {
 }
 
 async function sendPasswordResetEmail(to, resetLink) {
+  if (process.env.NODE_ENV === 'test') return;
   await transporter.sendMail({
     from: process.env.EMAIL_FROM,
     to,
@@ -40,6 +42,7 @@ async function sendPasswordResetEmail(to, resetLink) {
 }
 
 async function sendEquipmentRequestResultEmail(to, fullName, itemName, quantity, approved) {
+  if (process.env.NODE_ENV === 'test') return;
   const subject = approved ? 'Your equipment request was approved' : 'Your equipment request was rejected';
   const message = approved
     ? `Your request for ${quantity}× ${itemName} has been approved. You can now pick it up from stock.`

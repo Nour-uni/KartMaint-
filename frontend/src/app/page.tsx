@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="relative min-h-screen bg-[#14181f] flex items-center justify-center overflow-hidden p-6">
       <svg
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full pointer-events-none"
         viewBox="0 0 1376 768"
         preserveAspectRatio="xMidYMid slice"
         aria-hidden="true"
